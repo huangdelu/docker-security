@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Highcharts Example</title>
+  <script type="text/javascript" src="http://cdn.hcharts.cn/highstock/highstock.js"></script>
+  <script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+  <!--<script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/funnel.js"></script>-->
+  <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+
+  <script type="text/javascript">
+
+  var data={{data}};
+    
+  //创建图表
+  var chart;
+  $(document).ready(function() {
+   Highcharts.setOptions({
+    global:{
+        useUTC:false
+    }
+   })
+
+   chart = new Highcharts.StockChart( {
+    chart : {
+     renderTo : 'container',
+     events : {
+      load : st// 定时器
+     }
+    },
+    rangeSelector: {
+      inputEnabled: $('#container').width() > 480,
+        selected: 1
+    },
+    exporting:{
+     enabled:true
+    },
+    title : {
+     text : '内存使用情况'
+    },
+    series : [ {
+     name: '内存使用情况',
+     data : data,
+     type: 'spline',
+     }]
+   });
+   
+   
+  });
+
+
+  //2秒钟刷新一次数据
+  function st() {
+   setInterval("getData()", 1000);
+  }
+
+  //动态更新图表数据
+  function getData() {
+
+   $.ajax({
+      type: "get",
+      url: "/new",
+      dataType: "json",
+      success : function(data){
+      chart.series[0].addPoint(data,true,true);
+
+      }
+    });
+  }
+
+  </script>
+ </head>
+ <body>
+
+<div id="container" ></div>
+ </body>
+</html>

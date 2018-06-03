@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+{% block css %}
+img{
+	width:100%;
+}
+{% endblock %}
+{% block navside %}
+<!-- /. NAV SIDE  -->
+
+<div id="page-wrapper">
+    <div class="header"> 
+        <h1 class="page-header">
+            检测报告<small>关于你的Docker镜像</small>
+        </h1>
+	<ol class="breadcrumb">
+	    <li><a href="#">Docker镜像检测</a></li>
+	    <li class="active">检测报告</li>
+	</ol> 
+							
+</div>
+<div id="page-inner">
+
+<!-- /. ROW  -->
+
+<div class="row">
+	<div class="col-xs-6 col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-body easypiechart-panel">
+				<h4>程序漏洞评分</h4>
+				<div class="easypiechart" id="easypiechart-teal" data-percent={{CS}} ><span class="percent">{{CS}}分</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-6 col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-body easypiechart-panel">
+				<h4>恶意文件评分</h4>
+				<div class="easypiechart" id="easypiechart-blue" data-percent={{ES}} ><span class="percent">{{ES}}分</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-6 col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-body easypiechart-panel">
+				<h4>外连IP&域名评分</h4>
+				<div class="easypiechart" id="easypiechart-orange" data-percent={{IS}} ><span class="percent">{{IS}}分</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-6 col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-body easypiechart-panel">
+				<h4>总分</h4>
+				<div class="easypiechart" id="easypiechart-red" data-percent="{{TS}}" ><span class="percent">{{TS}}分</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/.row-->
+<div class="row">	
+	<div class="col-md-5">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+	            统计信息
+	        </div>
+	        <div class="panel-body">
+	            <div id="morris-bar-chart"></div>
+	        </div>
+	    </div>	
+	</div>
+	<div class="col-md-4 col-sm-12 col-xs-12">
+		<div class="panel panel-default">
+		    <div class="panel-heading">
+		        外连IP地图
+		    </div>
+
+		    <div class="panel-body">
+		        <img src={{imgpath}}>              
+		    </div>
+		</div>
+	</div>
+	
+    <div class="col-md-3 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                docker容器信息
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+		            <a href="#" class="list-group-item">
+                        <i class="fa fa-fw fa-globe"></i>底层系统名称  {{indexinfo[2]}}
+                    </a>
+		            <a href="#" class="list-group-item">
+                        <i class="fa fa-fw fa-globe"></i>底层系统版本  {{indexinfo[3]}}
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-fw fa-globe"></i>外连IP&域名个数  {{indexinfo[4]+indexinfo[6]}}个
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-fw fa-globe"></i>外连IP&域名次数  {{indexinfo[5]+indexinfo[7]}}次
+                    </a>
+                </div>                
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                恶意流量
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    {% for i in evilIP %}
+                    <a href="#" class="list-group-item">
+                        <span class="badge">威胁</span>
+                        <i class="fa fa-fw fa-globe"></i>{{i[2]}}
+                    </a>
+                    {% endfor %}
+                    {% for i in evildomain %}
+                    <a href="#" class="list-group-item">
+                        <span class="badge">威胁</span>
+                        <i class="fa fa-fw fa-globe"></i>{{i[2]}}
+                    </a>
+                    {% endfor %}
+                </div>                
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                恶意文件
+            </div> 
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>恶意文件路径</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in evildtl %}
+                            <tr>
+                                <td>{{i[2]}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                漏洞
+            </div> 
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>漏洞名称</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in CVEdtl %}
+                            <tr>
+                                <td>{{i[4]}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. ROW  -->
+</div>
+<!-- /. PAGE INNER  -->
+{% endblock %}
+
+{% block js %}
+	$("#result").removeClass("").addClass('active-menu');
+
+(function ($) {
+    "use strict";
+    var mainApp = {
+        initFunction: function () {
+            /*MENU 
+            ------------------------------------*/
+            $('#main-menu').metisMenu();        
+            $(window).bind("load resize", function () {
+                if ($(this).width() < 768) {
+                    $('div.sidebar-collapse').addClass('collapse')
+                } else {
+                    $('div.sidebar-collapse').removeClass('collapse')
+                }
+            });
+            /* MORRIS BAR CHART
+            -----------------------------------------*/
+            Morris.Bar({
+                element: 'morris-bar-chart',
+                data: [{
+                    y: '漏洞',
+                    a: {{indexinfo[8]}}
+                },{
+                    y: '恶意文件',
+                    a: {{indexinfo[10]}}
+                },{
+                    y: '内置程序',
+                    a: {{indexinfo[9]}}
+                }],
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['总数'],
+        barColors: [
+            '#F09B22','#F09B22',
+            '#A8E9DC' 
+        ],
+            }); 
+            $('.bar-chart').cssCharts({type:"bar"});
+        },
+        initialization: function () {
+            mainApp.initFunction();
+        }
+    }
+    // Initializing ///
+    $(document).ready(function () {
+        mainApp.initFunction(); 
+        $("#sideNav").click(function(){
+            if($(this).hasClass('closed')){
+                $('.navbar-side').animate({left: '0px'});
+                $(this).removeClass('closed');
+                $('#page-wrapper').animate({'margin-left' : '260px'});
+            }
+            else{
+                $(this).addClass('closed');
+                $('.navbar-side').animate({left: '-260px'});
+                $('#page-wrapper').animate({'margin-left' : '0px'}); 
+            }
+        });
+    });s
+}(jQuery));
+{% endblock %}

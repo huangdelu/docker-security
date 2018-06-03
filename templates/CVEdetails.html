@@ -1,0 +1,65 @@
+﻿{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+{% block navside %}
+<div id="page-wrapper" >
+	  <div class="header"> 
+		<h1 class="page-header">
+		    漏洞详情
+		</h1>
+		<ol class="breadcrumb">
+		    <li><a href="/">Docker镜像检测</a></li>
+		    <li class="active">漏洞详情</li>
+		</ol> 
+	  </div>
+		
+            <div id="page-inner"> 
+               
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             漏洞列表
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>程序名称</th>
+                                            <th>漏洞等级</th>
+                                            <th>CVE-ID</th>
+                                            <th>漏洞信息</th>
+                                            <th>CVE链接</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+					                    {% for i in CVEdetails %}
+                                         
+                                        <tr class="odd gradeX">
+                                            <td>{{i[2]}}</td>
+                                            <td>{{i[3]}}</td>
+                                            <td>{{i[4]}}</td>
+                                            <td>{{i[5]}}</td>
+                                            <td>{{i[6]}}</td>
+                                        </tr>
+					                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+	</div>
+</div>
+<!-- /. PAGE WRAPPER  -->
+{% endblock %}
+
+    
+{% block js %}
+    $("#CVEdetails").removeClass("").addClass('active-menu');
+{% endblock %}

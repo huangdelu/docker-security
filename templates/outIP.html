@@ -1,0 +1,85 @@
+﻿{% extends "base.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block navside %}
+<div id="page-wrapper" >
+	  <div class="header"> 
+		<h1 class="page-header">
+		    恶意IP&域名
+		</h1>
+		<ol class="breadcrumb">
+		    <li><a href="/">Docker镜像检测</a></li>
+		    <li class="active">恶意IP&域名</li>
+		</ol> 
+	  </div>
+		
+            <div id="page-inner"> 
+               
+            <div class="row">
+                <div class="col-md-12">
+ 		            {% for i in outIP %}
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                       
+                        <div class="panel-heading">
+                            IP地址:{{i[2]}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>来源</th>
+                                            <th>描述</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                  
+                                        <tr>
+                                            <td>{{i[3]}}</td>
+                                            <td>{{i[4]}}</td>
+                                        </tr>       
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+		            {% endfor %}
+                    {% for i in outdomain %}
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                       
+                        <div class="panel-heading">
+                            域名:{{i[2]}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>来源</th>
+                                            <th>描述</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                  
+                                        <tr>
+                                            <td>{{i[3]}}</td>
+                                            <td>{{i[4]}}</td>
+                                        </tr>       
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+		            {% endfor %}
+                </div>
+            </div>
+	</div>
+</div>
+<!-- /. PAGE WRAPPER  -->
+{% endblock %}
+{% block js %}
+    $("#evilIP").removeClass('').addClass('active-menu');
+{% endblock %}

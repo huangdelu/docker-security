@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block head %}{% endblock %}
+    <title>后台管理 | {% block title %}{% endblock %}</title>
+    <!-- Bootstrap Styles-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="/static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="/static/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="/static/js/Lightweight-Chart/cssCharts.css"> 
+    <style type="text/css">{% block css %}{% endblock %}</style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="result"><strong>Docker镜像检测</strong></a>
+				
+		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            </div>
+        </nav>
+        <!--/. NAV TOP  -->
+        {% block navtop %}
+        <nav class="navbar-default navbar-side" role="navigation">
+			<div class="sidebar-collapse">
+			    <ul class="nav" id="main-menu">
+			        <li>
+			            <a id="result" href="result"><i class="fa fa-dashboard"></i>检测报告</a>
+			        </li>
+			        <li>
+			            <a id="CVEdetails" href="CVEdetails"><i class="fa fa-desktop"></i>漏洞详情</a>
+			        </li>
+					<li>
+			            <a id="IPdetails" href="IPdetails"><i class="fa fa-edit"></i>外连ip信息</a>
+			        </li>
+                    <li>
+                        <a id="evilIP" href="evilIP"><i class="fa fa-qrcode"></i>恶意IP&域名</a>
+                    </li>
+		            <li>
+			            <a id="evilfile" href="evilfile"><i class="fa fa-bar-chart-o"></i>恶意文件详情</a>
+			        </li>
+			        <li>
+			            <a id="program" href="program"><i class="fa fa-table"></i>内置程序详情</a>
+			        </li>
+				
+			    </ul>
+			</div>
+		</nav>
+        {% endblock %}
+        <!-- /. NAV SIDE  -->
+      	{% block navside %}{% endblock %}
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="/static/js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="/static/js/bootstrap.min.js"></script>
+	 
+    <!-- Metis Menu Js -->
+    <script src="/static/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="/static/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/static/js/morris/morris.js"></script>	
+	<script src="/static/js/easypiechart.js"></script>
+	<script src="/static/js/easypiechart-data.js"></script>	
+	<script src="/static/js/Lightweight-Chart/jquery.chart.js"></script>
+    <script type="text/javascript">{% block js %}{% endblock %}</script>
+
+</body>
+
+</html>
