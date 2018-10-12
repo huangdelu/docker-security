@@ -24,7 +24,7 @@
 ---
 -下载并启动docker安全检测平台
 -    1.1需在本机安装docker服务  
--    1.2下载docker安全检测平台镜像：docker pull registry.cn-shenzhen.aliyuncs.com/skylinedocker/dockerdetect:secret  
+-    1.2下载docker安全检测平台镜像：docker pull registry.cn-shenzhen.aliyuncs.com/skylinedocker/dockerdetect:latest 
 -    1.3 启动docker安全检测平台镜像：docker run –id –t [ImgID] /bin/bash ./root/receive/start.sh
 -
 
